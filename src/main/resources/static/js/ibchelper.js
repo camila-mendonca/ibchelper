@@ -9,7 +9,7 @@ $(function() {
 		$.ajax({
 			'async': false,
 			'global': false,
-			'url': '/user/listcontactinfo',
+			'url': '/contactinfos',
 			'dataType': "json",
 			'success': function(data) {
 				json = data;
