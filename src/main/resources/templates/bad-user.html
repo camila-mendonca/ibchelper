@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Error</title>
+
+</head>
+<body>
+
+	<div layout:fragment="page_content">
+		<div class="container mt-3">
+			<div class="row justify-content-center">
+			<div class="col-xl-4 col-lg-6 col-md-6">
+			<div class="card o-hidden border-0 shadow-lg my-5">
+				<div class="card-body text-center">
+					<input type="hidden" id="token" th:value="${token}">
+					<h3 class="alert alert-danger" th:utext="${message}">error</h3>
+    				<div id="resentError" class="alert alert-danger alert-dismissible fade show" style="display:none;" role="alert">
+						Couldn't resend the confirmation email!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+    				<div th:if="${invalid}">
+    					<p><span th:text="#{confirmRegistration.invalidTokenText}"></span></p>
+    				</div>
+    				<div th:if="${expired}">
+    					<p><span th:text="#{confirmRegistration.resendText}"></span></p>
+    					<button type="button" id="resendConfirmationButton" class="btn btn-primary" ><span th:text="#{confirmRegistration.resendButton}"></span></button>
+    				</div>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

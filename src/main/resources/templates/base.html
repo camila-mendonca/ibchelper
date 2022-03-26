@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">ICB Helper</title>
+	
+	<link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/styles.agency.css}" rel="stylesheet" />
+	
+</head>
+<body>
+	
+	<div class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark-transparent">
+		<div class="container-fluid">
+			<a href="/" class="navbar-brand text-light">
+				ICB Helper
+			</a>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav ms-auto">
+
+					<li class="nav-item ms-1">
+						<a class="nav-link" href="#">About Us</a>
+					</li>
+					<li class="nav-item ms-1">
+						<a class="nav-link" href="#">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>			
+
+	</nav>
+	</div>
+
+
+	<div layout:fragment="page_content"></div>
+	
+	<script th:src="@{js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>	
+	<script th:src="@{js/ibchelper.js}"></script>
+	
+</body>
+</html>

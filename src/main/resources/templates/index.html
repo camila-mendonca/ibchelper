@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+    <head>
+        <title>Agency - Start Bootstrap Theme</title>
+    </head>
+    <body id="page-top">
+        <div layout:fragment="page_content">
+        
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+            	<p class="fs-6 fw-light mb-1">Language:</p>
+                <img src="img/icon_english_64.png" onclick="changeLang('en')" title="Change to English">
+                <img src="img/icon_romanian_64.png" onclick="changeLang('ro')" title="Change to Romanian">
+                <img src="img/icon_ukraine_64.png" title="Change to Russian">
+                <div class="masthead-heading text-uppercase mt-3">It's Nice To Meet You</div>
+                <div class="masthead-subheading">We are a group of christians (cont...)</div>
+                <a class="btn btn-primary btn-xl mx-2 text-uppercase" href="#wantToHelp"><span th:text="#{index.wantToHelp}"></span></a>
+                <a class="btn btn-primary btn-xl mx-2 text-uppercase" href="#needHelp"><span th:text="#{index.needHelp}"></span></a>
+                
+            </div>
+        </header>
+        <!-- Services-->
+        <section class="page-section" id="wantToHelp">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase mb-6">Thank you for your support!</h2>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                    	<div class="my-4">                	
+							<span class="fa-stack fa-4x">
+	                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+	                            <i class="fas fa-donate fa-stack-1x fa-inverse"></i>
+	                        </span>
+	                        <h4 class="my-3">Financial</h4>
+	                        All the money donated will help us on:
+	                        <ul class="text-start">
+	                        	<li>Transportation of donated goods.</li>
+	                        	<li>Buying supplies for our volunteers and refugees</li>
+	                        	<li>And others</li>
+	                        </ul>	                        
+	                        <p>To contribute with money, you can donate to our <a href="https://globaloutreach.org/giving/project-details/missionary-emergency-fund" target="_blank">Global Outreach Missionary Emergency Fund</a></p>
+	                       <a href="https://globaloutreach.org/giving/project-details/missionary-emergency-fund" target="_blank"> <img class="mb-1" src="img/GOlogo.png"/></a>
+	                       <p>If you want to know more about our work, check <a href="https://www.facebook.com/natytully" target="_blank">Naty Tully's facebook profile.</a></p>
+                        </div>
+					</div>
+                    <div class="col-md-4">
+	                    <a class="modalLink" data-bs-toggle="modal" href="#financialHelpModal" role="button">
+	                        <span class="fa-stack fa-4x">
+	                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+	                            <i class="fas fa-gift fa-stack-1x fa-inverse"></i>
+	                        </span>
+	                        <h4 class="my-3">Donations</h4>
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+	                    </a>
+	                    <div class="modal fade" id="financialHelpModal" tabindex="-1">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="financialHelpModalToggleLabel">Donations</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">Show a second modal and hide this one with the button below.</div>									
+								</div>
+							</div>
+						</div>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-people-carry fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Volunteer</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    </div>
+                </div>
+                <div class="text-end mt-5">
+                	<span class="fw-light fst-italic text-muted">Then the King will say to those on his right, "Come, you who are blessed by my Father; take your inheritance, the kingdom prepared for you since the creation of the world. For I was hungry and you gave me something to eat, I was thirsty and you gave me something to drink, I was a stranger and you invited me in, I needed clothes and you clothed me, I was sick and you looked after me, I was in prison and you came to visit me." (Matthew 25:34-36)</span>
+                </div>
+                
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section bg-yellow" id="needHelp">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">How can we help you?</h2>
+                    <h3 class="section-subheading text-muted">Check below all the ways that we can offer you assistance.</h3>
+                </div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#infoFilters"><i class="fas fa-filter"></i> Filters</button>
+                <div id="infoFilters" class="collapse">
+                	<div class="card card-body mt-2">
+                		<div class="row">
+	                		<div class="col-md-6 col-lg-4">
+		                		<span class="badge rounded-pill bg-primary" style="font-size: 1em;">Country</span>
+		                		<p>Where are you at?</p>
+		                		<div class="form-check form-check-inline">
+									<input type="checkbox" name="infoCountry" id="infoGeneral" class="form-check-input" data-area="area" value="General">
+									<label class="form-check-label" for="infoGeneral">Other Countries</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="checkbox" name="infoCountry" id="infoRomania" class="form-check-input" data-area="area" value="Romania">
+									<label class="form-check-label" for="infoRomania">Romania</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="checkbox" name="infoCountry" id="infoMoldova" class="form-check-input" data-area="area" value="Moldova">
+									<label class="form-check-label" for="infoMoldova">Moldova</label>
+								</div>
+		                	</div>
+		                	<div class="col-md-6 col-lg-4">
+		                		<span class="badge rounded-pill bg-info text-dark" style="font-size: 1em;">Assistance type</span>
+		                		<p>What type of assistance do you need?</p>
+		                		<select class="form-select" size="4">
+								  <option selected>All</option>
+								  <option value="financial">Financial</option>
+								  <option value="kids">For Kids</option>
+								  <option value="pets">For Pets</option>
+								  <option value="health">Healthcare</option>
+								  <option value="housing">Housing</option>
+								  <option value="jobs">Jobs</option>
+								  <option value="legal">Legal</option>
+								  <option value="transport">Transportation</option>
+								  <option value="others">Others</option>
+								</select>
+		                	</div>
+                		</div>                		
+                	</div>
+                </div>
+                
+                <div id="infoCards" class="row">
+                	<div class="infoCard col-md-6 col-lg-4">
+	                	<div class="card my-2">
+	                		<div class="card-header">
+	                			<img class="info-CountryImg me-1" src=""><span class="info-Country badge rounded-pill bg-primary"></span>
+								<span class="info-typeAssistance badge rounded-pill bg-info text-dark"></span>
+							</div>
+							<div class="card-body">
+								<h5 class="card-title"><span class="info-name"></span></h5>
+								<h6 class="card-subtitle mb-2 text-muted"><span class="info-typeAssistance"></span></h6>
+								<p><span class="info-notes"></span></p>
+								<div class="infoCardContacts">
+									<p class="mb-0"><strong>Contacts:</strong></p>
+									<ul class="infoCardList list-unstyled"></ul>	
+								</div>								
+							</div>
+						</div>
+                	</div>                	
+				</div>
+                <button type="button" id="loadInfoBtn" class="btn btn-primary">Show More</button>
+                <!-- <button type="button" id="hideInfoBtn" class="btn btn-secondary">Show Less</button> -->
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2021</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </body>
+</html>

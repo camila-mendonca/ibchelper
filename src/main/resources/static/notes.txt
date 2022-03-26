@@ -1,0 +1,16 @@
+ContactInfo
+
+name:
+type: Person/Church/Organization/Business
+email
+phone
+website
+assistance provided:
+notes:
+
+
+ContactPhone
+- contact FK
+- phone
+
+
