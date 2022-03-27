@@ -82,6 +82,12 @@ public class UserRestController {
 		return new GenericResponse("success");
 	}
 	
+	
+	@GetMapping("/contactinfos")
+	public Iterable<ContactInfo> listPublicContacInfo(){
+		return infoService.listContacInfo();
+	}
+	
 	//Contact Info CRUD	
 	
 	@PostMapping("/user/addinfo")
