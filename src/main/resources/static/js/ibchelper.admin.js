@@ -9,4 +9,15 @@ $(function(){
 			}
 		});
 	});
+	
+	$('#volTypeForm').submit(function(event){
+		event.preventDefault();
+		var formData = $('#volTypeForm').serialize();
+		
+		$.post("addvoltype", formData, function(data){
+			if (data.message == "success") {
+				window.location.href = "/adminpage";
+			}
+		});
+	});
 });

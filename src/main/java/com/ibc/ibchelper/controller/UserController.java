@@ -18,7 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.ibc.ibchelper.entity.ContactInfo;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
-import com.ibc.ibchelper.service.LanguageService;
+import com.ibc.ibchelper.service.AdminService;
 import com.ibc.ibchelper.service.UserService;
 
 @Controller
@@ -29,13 +29,14 @@ public class UserController {
 	@Autowired
 	MessageSource msgSource;
 	@Autowired
-	LanguageService langService;
+	AdminService adminService;
 	
 	@RequestMapping(value="/")
 	public String index() {
 		return "index";
 	}
 	
+	//In case we need to add more than one external account login: https://www.baeldung.com/spring-security-5-oauth2-login#customization
 	@RequestMapping(value= "/login")
 	public String login(Model model) {
 		return "login";
@@ -53,15 +54,12 @@ public class UserController {
         return principal.getName();
     }
 	
-	@GetMapping("/adminpage")
-	public String openAdmin(Model model) {
-		return "user/adminpage";
-	}
+	
 	
 	//This one will change to Information Center later
 	@GetMapping("/user/index")
 	public String index(ContactInfo contactInfo, Model model) {
-		model.addAttribute("languages", langService.listLanguages());
+		model.addAttribute("languages", adminService.listLanguages());
 		return "user/index";
 	}
 	

@@ -19,15 +19,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ibc.ibchelper.entity.ContactInfo;
+import com.ibc.ibchelper.entity.Event;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
 import com.ibc.ibchelper.mail.EmailSender;
 import com.ibc.ibchelper.service.ContactInfoService;
 import com.ibc.ibchelper.service.UserService;
+import com.ibc.ibchelper.service.VolunteerService;
 import com.ibc.ibchelper.util.GenericResponse;
 import com.ibc.ibchelper.util.OnRegistrationCompleteEvent;
 
@@ -37,6 +41,9 @@ public class UserRestController {
 	UserService userService;
 	@Autowired
 	ContactInfoService infoService;
+	@Autowired
+	VolunteerService volService;
+	
 	//Framework related classes
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
@@ -51,6 +58,13 @@ public class UserRestController {
 		User user = userService.loadUser(auth.getName());
 		return user;
 	}
+	
+	/*
+	@GetMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return Collections.singletonMap("name", principal.getAttribute("name"));
+    }
+    */
 	
 	//User CRUD	
 	
@@ -88,7 +102,8 @@ public class UserRestController {
 		return infoService.listContacInfo();
 	}
 	
-	//Contact Info CRUD	
+	//--------------------------------------------
+	// Contact Info CRUD	
 	
 	@PostMapping("/user/addinfo")
 	public GenericResponse addInfo(@Valid ContactInfo info, final HttpServletRequest request) {
@@ -110,6 +125,29 @@ public class UserRestController {
 	public ResponseEntity<String> removeInfo(@PathVariable ("infoId") Long infoId) {
 		infoService.removeInfo(infoId);
 		return ResponseEntity.ok().build();
+	}
+	//--------------------------------------------
+	// Events CRUD
+	
+	@PostMapping("/user/addevent")
+	public GenericResponse addEvent(@Valid Event event, final HttpServletRequest request) {
+		volService.saveEvent(event);
+		return new GenericResponse("success");
+	}
+	
+	//--------------------------------------------
+	// Volunteers CRUD
+	
+	@RequestMapping("/user/volunteers")
+	public ModelAndView openVolunteers(ModelAndView mv) {
+		mv.addObject("volunteerTypes", volService.listVolunteerTypes());
+		mv.setViewName("user/volunteers");
+	    return mv;
+	}
+	
+	@GetMapping("/listevents")
+	public Iterable<Event> listEvent(){
+		return volService.listEvents();
 	}
 	
 	//--------------------------------------------

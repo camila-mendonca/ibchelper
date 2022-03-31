@@ -11,6 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -20,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User implements Serializable, UserDetails{
 
 	private static final long serialVersionUID = 1L;
@@ -42,14 +47,16 @@ public class User implements Serializable, UserDetails{
 	
 	@NotBlank(message="Name is mandatory")
 	private String name;
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="user_vol_type", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="vol_type_id"))
+	private Set<VolunteerType> typesVolunteer;
+		
 	public User() {
 		super();
-	}
-
+	}	
 	public User(Long userId, @Email @NotBlank(message = "Username is mandatory") String username,
 			@NotBlank(message = "Password is mandatory") String password, String confirmPassword, Set<Role> roles,
-			boolean enabled, @NotBlank(message = "Name is mandatory") String name) {
+			boolean enabled, @NotBlank(message = "Name is mandatory") String name, Set<VolunteerType> typesVolunteer) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -58,8 +65,8 @@ public class User implements Serializable, UserDetails{
 		this.roles = roles;
 		this.enabled = enabled;
 		this.name = name;
+		this.typesVolunteer = typesVolunteer;
 	}
-
 	public Long getUserId() {
 		return userId;
 	}
@@ -102,7 +109,13 @@ public class User implements Serializable, UserDetails{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	public Set<VolunteerType> getTypesVolunteer() {
+		return typesVolunteer;
+	}
+	public void setTypesVolunteer(Set<VolunteerType> typesVolunteer) {
+		this.typesVolunteer = typesVolunteer;
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
