@@ -3,9 +3,9 @@ $(function(){
 		event.preventDefault();
 		var formData = $('#langForm').serialize();
 		
-		$.post("addlanguage", formData, function(data){
+		$.post("admin/addlanguage", formData, function(data){
 			if (data.message == "success") {
-				window.location.href = "/adminpage";
+				window.location.href = "admin/adminpage";
 			}
 		});
 	});
@@ -14,9 +14,9 @@ $(function(){
 		event.preventDefault();
 		var formData = $('#volTypeForm').serialize();
 		
-		$.post("addvoltype", formData, function(data){
+		$.post("admin/addvoltype", formData, function(data){
 			if (data.message == "success") {
-				window.location.href = "/adminpage";
+				window.location.href = "admin/adminpage";
 			}
 		});
 	});

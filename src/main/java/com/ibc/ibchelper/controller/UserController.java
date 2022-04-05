@@ -36,11 +36,7 @@ public class UserController {
 		return "index";
 	}
 	
-	//In case we need to add more than one external account login: https://www.baeldung.com/spring-security-5-oauth2-login#customization
-	@RequestMapping(value= "/login")
-	public String login(Model model) {
-		return "login";
-	}
+	
 	
 	@GetMapping("/signup")
 	public String LoadSignUpForm(User user) {
@@ -98,7 +94,7 @@ public class UserController {
 	    user.setEnabled(true); 
 	    userService.updateUser(user);
 	    model.addAttribute("message", msgSource.getMessage("message.accountVerified", null, locale));
-	    return "/login";
+	    return "login";
 	}
 	
 	

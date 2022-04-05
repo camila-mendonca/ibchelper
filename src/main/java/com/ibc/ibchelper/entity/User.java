@@ -41,6 +41,7 @@ public class User implements Serializable, UserDetails{
 	private String confirmPassword;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
+	private UserType type;
 	
 	@Column(name = "enabled")
     private boolean enabled;
@@ -56,13 +57,15 @@ public class User implements Serializable, UserDetails{
 	}	
 	public User(Long userId, @Email @NotBlank(message = "Username is mandatory") String username,
 			@NotBlank(message = "Password is mandatory") String password, String confirmPassword, Set<Role> roles,
-			boolean enabled, @NotBlank(message = "Name is mandatory") String name, Set<VolunteerType> typesVolunteer) {
+			UserType type, boolean enabled, @NotBlank(message = "Name is mandatory") String name,
+			Set<VolunteerType> typesVolunteer) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.confirmPassword = confirmPassword;
 		this.roles = roles;
+		this.type = type;
 		this.enabled = enabled;
 		this.name = name;
 		this.typesVolunteer = typesVolunteer;
@@ -96,8 +99,13 @@ public class User implements Serializable, UserDetails{
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}	
+	public UserType getType() {
+		return type;
 	}
-	
+	public void setType(UserType type) {
+		this.type = type;
+	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
