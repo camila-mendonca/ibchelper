@@ -9,7 +9,7 @@ import com.ibc.ibchelper.error.UserAlreadyExistException;
 public interface UserService {
 	
 	public User loadUser(String username);
-	public void saveUser(User user) throws UserAlreadyExistException;
+	public User saveUser(User user) throws UserAlreadyExistException;
 	public void createVerificationTokenForUser(User user, String token);
 	public VerificationToken getVerificationToken(String token);
 	public void updateUser(User user);

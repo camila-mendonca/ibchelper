@@ -28,44 +28,9 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	MessageSource msgSource;
-	@Autowired
-	AdminService adminService;
-	
-	@RequestMapping(value="/")
-	public String index() {
-		return "index";
-	}
-	
-	
-	
-	@GetMapping("/signup")
-	public String LoadSignUpForm(User user) {
-		return "add-user";
-	}
-	
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName(Principal principal) {
-		System.out.println("Logged user: " + principal.getName());
-        return principal.getName();
-    }
-	
-	
-	
-	//This one will change to Information Center later
-	@GetMapping("/user/index")
-	public String index(ContactInfo contactInfo, Model model) {
-		model.addAttribute("languages", adminService.listLanguages());
-		return "user/index";
-	}
-	
-	@GetMapping("/admin/index")
-	public String adminIndex() {
-		return "user/admin/index";
-	}
 	
 	//Registration Operations
-	
+	/*
 	@GetMapping("/registrationConfirm")
 	public String confirmRegistration
 	  (WebRequest request, Model model, @RequestParam("token") String token) {
@@ -95,7 +60,7 @@ public class UserController {
 	    userService.updateUser(user);
 	    model.addAttribute("message", msgSource.getMessage("message.accountVerified", null, locale));
 	    return "login";
-	}
+	}*/
 	
 	
 

@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveUser(User user){
+	public User saveUser(User user){
 		if(userRep.findUserByUsername(user.getUsername())!=null) {
 			throw new UserAlreadyExistException("UserAlreadyExist");
 		}
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		roles.add(roleRep.findRoleById("ROLE_USER"));
 		user.setRoles(roles);
 		user.setEnabled(false);
-		userRep.save(user);		
+		return userRep.save(user);		
 	}
 
 	@Override
