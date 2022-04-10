@@ -9,7 +9,7 @@ public class ServerConfig implements WebServerFactoryCustomizer<ConfigurableWebS
 
 	@Override
 	public void customize(ConfigurableWebServerFactory factory) {
-		factory.setPort(Integer.parseInt(System.getenv("SPRING_APP_PORT")));
+		factory.setPort(Integer.parseInt(System.getenv("PORT")));
 	}
 
 }
