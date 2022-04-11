@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.ibc.ibchelper.util.MyAuthenticationSuccessHandler;
 import com.ibc.ibchelper.util.MyUserDetailsService;
 
 @Configuration
@@ -32,18 +34,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/admin/**").hasRole("ADMIN")
+		.antMatchers("/admin/**").hasRole("ADMIN")	
 		.antMatchers("/user/**").hasRole("USER")
 		.antMatchers("/*.css", "/*.js", "/*.png").permitAll()
 		.antMatchers("/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/user/index", true).permitAll()
+		.formLogin().loginPage("/login").
+		//successHandler(myAuthenticationSuccessHandler())
+		defaultSuccessUrl("/user/index", true)//.permitAll()
+		//.and()
+		//.oauth2Login().loginPage("/login")
 		.and()
 		.logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
         .and()
         .rememberMe().key("rememberUser")
 		.and().csrf().disable();
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+		return new MyAuthenticationSuccessHandler();
 	}
 
 }

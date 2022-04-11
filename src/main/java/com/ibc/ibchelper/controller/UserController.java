@@ -18,7 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.ibc.ibchelper.entity.ContactInfo;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
-import com.ibc.ibchelper.service.LanguageService;
+import com.ibc.ibchelper.service.AdminService;
 import com.ibc.ibchelper.service.UserService;
 
 @Controller
@@ -28,50 +28,9 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	MessageSource msgSource;
-	@Autowired
-	LanguageService langService;
-	
-	@RequestMapping(value="/")
-	public String index() {
-		return "index";
-	}
-	
-	@RequestMapping(value= "/login")
-	public String login(Model model) {
-		return "login";
-	}
-	
-	@GetMapping("/signup")
-	public String LoadSignUpForm(User user) {
-		return "add-user";
-	}
-	
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName(Principal principal) {
-		System.out.println("Logged user: " + principal.getName());
-        return principal.getName();
-    }
-	
-	@GetMapping("/adminpage")
-	public String openAdmin(Model model) {
-		return "user/adminpage";
-	}
-	
-	//This one will change to Information Center later
-	@GetMapping("/user/index")
-	public String index(ContactInfo contactInfo, Model model) {
-		model.addAttribute("languages", langService.listLanguages());
-		return "user/index";
-	}
-	
-	@GetMapping("/admin/index")
-	public String adminIndex() {
-		return "user/admin/index";
-	}
 	
 	//Registration Operations
-	
+	/*
 	@GetMapping("/registrationConfirm")
 	public String confirmRegistration
 	  (WebRequest request, Model model, @RequestParam("token") String token) {
@@ -100,8 +59,8 @@ public class UserController {
 	    user.setEnabled(true); 
 	    userService.updateUser(user);
 	    model.addAttribute("message", msgSource.getMessage("message.accountVerified", null, locale));
-	    return "/login";
-	}
+	    return "login";
+	}*/
 	
 	
 

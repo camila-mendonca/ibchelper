@@ -1,6 +1,7 @@
 package com.ibc.ibchelper.service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ibc.ibchelper.entity.PasswordResetToken;
 import com.ibc.ibchelper.entity.Role;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
 import com.ibc.ibchelper.error.UserAlreadyExistException;
+import com.ibc.ibchelper.repository.PasswordResetTokenRepository;
 import com.ibc.ibchelper.repository.RoleRepository;
 import com.ibc.ibchelper.repository.UserRepository;
 import com.ibc.ibchelper.repository.VerificationTokenRepository;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	VerificationTokenRepository tokenRep;
 	
 	@Autowired
+	PasswordResetTokenRepository passRep;
+	
+	@Autowired
 	PasswordEncoder encoder;
 	
 	@Override
@@ -37,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveUser(User user){
+	public User saveUser(User user){
 		if(userRep.findUserByUsername(user.getUsername())!=null) {
 			throw new UserAlreadyExistException("UserAlreadyExist");
 		}
@@ -46,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		roles.add(roleRep.findRoleById("ROLE_USER"));
 		user.setRoles(roles);
 		user.setEnabled(false);
-		userRep.save(user);		
+		return userRep.save(user);		
 	}
 
 	@Override
@@ -80,6 +86,23 @@ public class UserServiceImpl implements UserService {
 			return token.getUser();
 		}
 		return null;
+	}
+
+	@Override
+	public void createPasswordResetTokenForUser(User user, String token) {
+		PasswordResetToken myToken = new PasswordResetToken(token, user);
+		passRep.save(myToken);
+	}
+
+	@Override
+	public Optional<User> getUserByPasswordResetToken(String token) {
+		return Optional.ofNullable(passRep.findByToken(token).getUser());
+	}
+
+	@Override
+	public void changeUserPassword(User user, String newPassword) {
+		user.setPassword(encoder.encode(newPassword));
+		userRep.save(user);
 	}
 
 }

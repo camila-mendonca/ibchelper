@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/user/base}">
+
+<head>
+<title>Admin</title>
+<script type="text/javascript">
+
+</script>
+</head>
+
+<body>
+	<div layout:fragment="page_content" class="mt-4">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-header">
+				    	Languages
+				  	</div>
+				  	<div class="card-body">
+				  	<form action="/" method="post" id="langForm">
+						<label for="name" class="form-label">Name</label>
+						<input type="text" id="name" name="name" class="form-control form-control-sm" required>
+						<label for="value" class="form-label">Value</label>
+						<input type="text" id="value" name="value" class="form-control form-control-sm" required>
+						<input type="submit" value="Save Language" class="btn btn-primary btn-small mt-3">
+					</form>
+				</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-header">
+				    	Volunteer Types
+				  	</div>
+				  	<div class="card-body">
+				  	<form action="/" method="post" id="volTypeForm">
+						<label for="name" class="form-label">Name</label>
+						<input type="text" id="name" name="name" class="form-control form-control-sm" required>
+						<label for="value" class="form-label">Description</label>
+						<input type="text" id="description" name="description" class="form-control form-control-sm" required>
+						<input type="submit" value="Save VolType" class="btn btn-primary btn-small mt-3">
+					</form>
+				</div>
+				</div>
+			</div>
+		</div>
+			
+		
+	</div>
+</body>
+
+</html>

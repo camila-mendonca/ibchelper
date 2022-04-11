@@ -11,6 +11,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
         <link th:href="@{/css/styles.css}" rel="stylesheet" />
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/richtext.min.css}">
+        
         
     </head>
     <body class="sb-nav-fixed">
@@ -57,7 +59,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
                                 Drivers
                             </a>
-                            <a class="nav-link" th:href="@{/user/index}">
+                            <a class="nav-link" th:href="@{/user/volunteers}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-people-carry"></i></div>
                                 Volunteers	
                             </a>
@@ -92,10 +94,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </div>
         <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
         <script th:src="@{/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/js/jquery.richtext.min.js}"></script>
         <script th:src="@{/js/datatables.min.js}"></script>
         <script th:src="@{/js/dataTables.bootstrap5.min.js}"></script>
-        <script th:src="@{/js/scripts.js}"></script>	
+        <script th:src="@{/js/scripts.js}"></script>
 		<script th:src="@{/js/ibchelper.js}"></script>
+		<script th:src="@{/js/ibchelper.user.js}"></script>
 		<script th:src="@{/js/ibchelper.admin.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
         

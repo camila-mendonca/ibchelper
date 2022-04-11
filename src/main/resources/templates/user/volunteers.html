@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/user/base}">
+
+<head>
+<title>Information</title>
+<style type="text/css">
+label.error {
+	color: red;
+}
+
+input.error, select.error {
+	border-color: red;
+}
+
+#infoWarnings {
+	display: none
+}
+</style>
+<script type="text/javascript">
+
+</script>
+</head>
+
+<body>
+	<div layout:fragment="page_content">
+		<h2 class="mt-4">Events</h2>
+		<div class="card overflow-scroll mb-4">
+			<div class="card-body">
+
+				<table id="eventsTable" class="display table table-sm" style="width: 100%">
+					<thead>
+						<tr class="table-primary">
+							<th>ID</th>
+							<th style="min-width: 20px;"></th>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Country</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<!-- Confirm Remove Event -->
+			<div class="modal fade" id="confirmRemoveInfoModal" tabindex="-1" aria-labelledby="confirmRemoveInfoModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-body">Are you sure you want to remove this event? This action can't be undone.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+							<button type="button" id="confirmRemoveInfoButton" class="btn btn-primary">Yes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Confirm Cancel Event -->
+		<div class="modal fade" id="confirmRemoveInfoModal" tabindex="-1" aria-labelledby="confirmRemoveInfoModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-body">Are you sure you want to cancel this event?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+						<button type="button" id="confirmRemoveInfoButton" class="btn btn-primary">Yes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">
+			Create Event
+		</button>
+		
+		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="eventModalLabel">Add/Edit Event</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<form action="/" method="post" id="eventForm">
+						<div class="modal-body">
+							<input type="hidden" name="eventId">						
+							<div class="row">
+								<div class="col-12">
+									<label for="name" class="form-label">Name</label>
+									<input type="text" id="name" name="name" class="form-control form-control-sm" required>
+								</div>
+								<div class="col-md-6">
+									<label for="dateEvent" class="form-label">Day</label>
+									<input type="date" id="dateEvent" name="dateEvent" class="form-control form-control-sm" required>
+								</div>
+								<div class="col-md-6">
+									<label for="hourEvent" class="form-label">Time</label>
+									<input type="time" id="hourEvent" name="hourEvent" class="form-control form-control-sm" required>
+								</div>
+								<div class="col-12">
+									<label for="country" class="form-label">Country</label>
+									<select id="country" name="country" class="form-select form-select-sm" required>
+										<option selected>Select one country</option>
+										<option value="Romania">Romania</option>
+										<option value="Moldova">Moldova</option>						
+									</select>
+								</div>
+								<div class="col-12">
+									<label for="address" class="form-label">Address</label>
+									<input type="text" id="address" name="address" class="form-control form-control-sm" required>
+								</div>
+								<div class="col-12">
+									<label for="neededVolunteers" class="form-label">Type of help needed</label>
+									<select id="neededVolunteers" name="neededVolunteers" multiple class="form-select form-select-sm" required>
+										<option selected>Select at least one </option>
+										<option th:each="volType : ${volunteerTypes}" th:value="${volType.volTypeId}" th:text="${volType.name}"></option>					
+									</select>
+								</div>
+								<div class="col-12">
+									<label for="details" class="form-label">Details<span class="text-muted"> (Optional - More details about what will be done there, etc)</span></label>
+									<textarea id="details" name="details" class="text-editor form-control" rows="5"></textarea>
+								</div>
+							</div>												
+						</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save Event</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	Hello?
+	<!-- Button trigger modal -->
+	
+
+
+	<div class="card mb-4" id="newInfo">
+		<div class="card-header">Information form</div>
+		<div class="card-body">
+			<form action="/" method="post" id="infoForm">
+				<div class="row">
+					<span th:text="#{info.mandatory}"></span>
+					<div id="infoAdded" class="alert alert-success alert-dismissible fade show" style="display: none;" role="alert">
+						Information/Contact saved with success!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div id="infoWarnings" class="alert alert-warning alert-dismissible" role="alert">
+						Couldn't save the information! Please, look for the fields in red and check what needs to be done.
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<input type="hidden" name="contactInfoId">
+					<div class="col-md-8">
+						<label for="name" class="form-label">Name *</label> <input type="text" id="name" name="name" class="form-control form-control-sm" required>
+					</div>
+					<div class="col-md-4">
+						<label for="typeAssistance" class="form-label">Type of assistance offered *</label>
+						<!-- <input type="text" id="typeAssistance" name="typeAssistance" class="form-control form-control-sm" required> -->
+						<select id="typeAssistance" name="typeAssistance" class="form-select form-select-sm" required>
+							<option selected>Select one type</option>
+							<option value="Financial">Financial</option>
+							<option value="For Kids">For Kids</option>
+							<option value="For Pets">For Pets</option>
+							<option value="Healthcare">Healthcare</option>
+							<option value="Housing">Housing</option>
+							<option value="Jobs">Jobs</option>
+							<option value="Legal">Legal</option>
+							<option value="Transportation">Transportation</option>
+							<option value="Others">Others</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="area" class="form-label">Area *</label> <select class="form-select form-select-sm" id="area" name="area" required>
+							<option selected value="">Select an area</option>
+							<option value="General">Other Countries</option>
+							<option value="Romania">Romania</option>
+							<option value="Moldova">Moldova</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="languages" class="form-label">Language *</label> <select class="form-select form-select-sm" id="languages" name="languages" required>
+							<option selected value="">Select a language</option>
+							<option th:each="lang : ${languages}" th:value="${lang.languageId}" th:text="${lang.name}"></option>
+
+
+						</select>
+					</div>
+
+					<h6 class="mt-4 pt-3 border-top">
+						<span th:text="#{info.contact}"></span>
+					</h6>
+					<p class="mb-0">
+						<span th:text="#{info.contactMinimal}"></span>
+					</p>
+					<div class="col-md-6">
+						<label for="email" class="form-label">Email address</label> <input type="email" id="email" name="email" class="contacts form-control form-control-sm">
+					</div>
+					<div class="col-md-6">
+						<label for="email" class="form-label">Website (if any)</label> <input type="url" id="website" name="website" class="contacts form-control form-control-sm">
+					</div>
+					<div class="col-3">
+						<label for="phone" class="form-label">Country code</label>
+					</div>
+					<div class="col-9">
+						<label for="phone" class="form-label">Phone (numbers only)</label>
+					</div>
+					<div class="col-3">
+						<input type="number" min="0" id="countryCode" name="countryCode" class="form-control form-control-sm number-only">
+					</div>
+					<div class="col-9">
+						<input type="number" min="0" id="phone" name="phoneNumber" class="contacts form-control form-control-sm number-only">
+					</div>
+
+
+					<div class="col-12 mb-2 mt-4 border-top">
+						<label for="details" class="form-label">Additional notes <span class="text-muted">(More details about the assistance offered, other ways of contact, etc)</span></label>
+						<textarea name="notes" class="form-control" rows="5"></textarea>
+					</div>
+					<div class="form-check mb-2 ms-3">
+						<input class="form-check-input" value="false" type="checkbox" id="isPublic" name="isPublic"> <label class="form-check-label" for="isPublic"> Make it public? </label>
+					</div>
+				</div>
+
+				<button type="button" class="btn btn-secondary btn-small" data-bs-toggle="modal" data-bs-target="#confirmClearModal">Clear Form</button>
+				<input type="submit" value="Save Information" class="btn btn-primary btn-small">
+
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="confirmClearModal" tabindex="-1" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<div class="modal-body">Clear the form? Any changes will be lost.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+					<button type="button" id="clearFormButton" class="btn btn-primary">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -29,6 +29,9 @@ function loadEditInfo(id){
 		        		$('#infoForm *[name="languages"]').val(data.languages[l].languageId);
 		        	}		        	
 		        } else {
+		        	if(i=='notes'){
+		        		$('#infoForm .richText-editor').html(data[i]);
+		        	}
 		        	$('#infoForm *[name="'+i+'"]').val(data[i]);
 		        }		    	
 		    	window.location.href = "/user/index#newInfo";
@@ -177,7 +180,7 @@ function loadEditInfo(id){
 							
 				<div class="col-12 mb-2 mt-4 border-top">
 					<label for="details" class="form-label">Additional notes <span class="text-muted">(More details about the assistance offered, other ways of contact, etc)</span></label>
-					<textarea name="notes" class="form-control" rows="5"></textarea>
+					<textarea name="notes" class="text-editor form-control" rows="5"></textarea>
 				</div>
 				<div class="form-check mb-2 ms-3">
 				  <input class="form-check-input" value="false" type="checkbox" id="isPublic" name="isPublic">
