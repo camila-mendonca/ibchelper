@@ -2,10 +2,7 @@ package com.ibc.ibchelper.controller;
 
 import java.security.Principal;
 import java.util.HashSet;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -16,15 +13,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,7 +26,6 @@ import com.ibc.ibchelper.entity.ContactInfo;
 import com.ibc.ibchelper.entity.Event;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.UserType;
-import com.ibc.ibchelper.entity.VerificationToken;
 import com.ibc.ibchelper.entity.Volunteer;
 import com.ibc.ibchelper.entity.VolunteerType;
 import com.ibc.ibchelper.mail.EmailSender;
@@ -42,8 +35,6 @@ import com.ibc.ibchelper.service.ContactInfoService;
 import com.ibc.ibchelper.service.UserService;
 import com.ibc.ibchelper.service.VolunteerService;
 import com.ibc.ibchelper.util.GenericResponse;
-import com.ibc.ibchelper.util.OnRegistrationCompleteEvent;
-import com.ibc.ibchelper.util.PasswordChangeForm;
 
 @RestController
 public class UserRestController {
@@ -69,15 +60,7 @@ public class UserRestController {
 	@GetMapping("/addvolunteer")
 	public void addVolunteer() {
 		Volunteer volunteer = new Volunteer();
-		
-		/*
-		user.setName("Volunteer One");
-		user.setUsername("volunteer01@mail.com");
-		user.setPassword("1234");
-		user.setEnabled(true);
-		user.setType(UserType.volunteer);
-		*/
-		
+
 		volunteer.setName("Volunteer Two");
 		volunteer.setUsername("volunteer02@mail.com");
 		volunteer.setPassword("1234");

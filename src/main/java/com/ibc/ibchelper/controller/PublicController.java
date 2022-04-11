@@ -171,7 +171,7 @@ public class PublicController {
 			
 		} else {
 			mv.addObject("token",token);
-			mv.setViewName("/updatepassword");
+			mv.setViewName("updatepassword");
 			//mv.setViewName("redirect:/updatePassword?lang="+locale.getLanguage());
 		}
 		return mv;
