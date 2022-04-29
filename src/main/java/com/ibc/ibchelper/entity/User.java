@@ -1,6 +1,7 @@
 package com.ibc.ibchelper.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -54,14 +57,17 @@ public class User implements Serializable, UserDetails{
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="user_vol_type", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="vol_type_id"))
 	private Set<VolunteerType> typesVolunteer;
-		
+	@CreationTimestamp
+	private LocalDateTime createdDate;
+	@UpdateTimestamp
+	private LocalDateTime lastUpdateDate;	
 	public User() {
 		super();
-	}	
+	}
 	public User(Long userId, @Email @NotBlank(message = "Username is mandatory") String username,
 			@NotBlank(message = "Password is mandatory") String password, String confirmPassword, Set<Role> roles,
 			UserType type, boolean enabled, @NotBlank(message = "Name is mandatory") String name,
-			Set<VolunteerType> typesVolunteer) {
+			Set<VolunteerType> typesVolunteer, LocalDateTime createdDate, LocalDateTime lastUpdateDate) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -72,6 +78,8 @@ public class User implements Serializable, UserDetails{
 		this.enabled = enabled;
 		this.name = name;
 		this.typesVolunteer = typesVolunteer;
+		this.createdDate = createdDate;
+		this.lastUpdateDate = lastUpdateDate;
 	}
 	public Long getUserId() {
 		return userId;
@@ -126,6 +134,18 @@ public class User implements Serializable, UserDetails{
 	}
 	public void setTypesVolunteer(Set<VolunteerType> typesVolunteer) {
 		this.typesVolunteer = typesVolunteer;
+	}
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+	public LocalDateTime getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+	public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

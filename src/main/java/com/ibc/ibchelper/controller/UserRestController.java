@@ -28,6 +28,7 @@ import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.UserType;
 import com.ibc.ibchelper.entity.Volunteer;
 import com.ibc.ibchelper.entity.VolunteerType;
+import com.ibc.ibchelper.form.VolunteerForm;
 import com.ibc.ibchelper.mail.EmailSender;
 import com.ibc.ibchelper.security.UserSecurityService;
 import com.ibc.ibchelper.service.AdminService;
@@ -35,6 +36,7 @@ import com.ibc.ibchelper.service.ContactInfoService;
 import com.ibc.ibchelper.service.UserService;
 import com.ibc.ibchelper.service.VolunteerService;
 import com.ibc.ibchelper.util.GenericResponse;
+import com.ibc.ibchelper.util.OnRegistrationCompleteEvent;
 
 @RestController
 public class UserRestController {
@@ -58,22 +60,41 @@ public class UserRestController {
 	EmailSender emailSender;
 	
 	@GetMapping("/addvolunteer")
-	public void addVolunteer() {
-		Volunteer volunteer = new Volunteer();
-
-		volunteer.setName("Volunteer Two");
-		volunteer.setUsername("volunteer02@mail.com");
-		volunteer.setPassword("1234");
-		volunteer.setEnabled(true);
-		volunteer.setType(UserType.volunteer);
-		volunteer.setCountry("Romania");
-		volunteer.setCity("Brasov");
-		volunteer.setVerified(true);
-		Set<VolunteerType> types = new HashSet<VolunteerType>();
-		types.add(volService.loadVolType((long) 80));
-		types.add(volService.loadVolType((long) 82));
-		volunteer.setTypesVolunteer(types);
-		volService.saveVolunteer(volunteer);
+	public void addVolunteer(final HttpServletRequest request) {
+		VolunteerForm vForm = new VolunteerForm();
+		vForm.setName("Host One");
+		vForm.setEmail("hostone@mail.com");
+		vForm.setPassword("123456");
+		vForm.setCountryCode("40");
+		vForm.setPhoneNumber("123654789");
+		vForm.setCountry("Romania");
+		vForm.setCity("Bucharest");
+		
+		Set<Long> types = new HashSet<>();
+		types.add((long) 81);
+		types.add((long) 82);
+		vForm.setVolunteerType(types);
+		
+		vForm.setVolunteerDetails("Here are some details about this volunteer");
+		vForm.setAvailableWeekdays(false);
+		vForm.setAvailableWeekends(true);
+		vForm.setAvailabilityExceptions("Not available in the morning");
+		
+		vForm.setIsHosting(true);
+		vForm.setAccAddress("Strada Liviu Rebreanu nr 16");
+		vForm.setAccBedsAdults(2);
+		vForm.setAccBedsKids(1);
+		vForm.setAccPets(true);
+		vForm.setAccNotes("Beds available starting on 01-05-2022");
+		vForm.setAccRestrictions("Can't accept dogs");
+		
+		vForm.setIsDriving(false);
+		
+		volService.saveVolunteer(vForm);
+		//String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+		//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), appUrl));
+		
+		
 	}
 	
 	@ModelAttribute("currentUser")

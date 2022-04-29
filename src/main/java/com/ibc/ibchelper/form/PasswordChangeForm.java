@@ -1,4 +1,4 @@
-package com.ibc.ibchelper.util;
+package com.ibc.ibchelper.form;
 
 public class PasswordChangeForm {
 	

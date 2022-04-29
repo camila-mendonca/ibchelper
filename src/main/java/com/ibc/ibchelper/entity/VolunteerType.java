@@ -11,8 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class VolunteerType implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -5606241977934448727L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="vol_type_id")

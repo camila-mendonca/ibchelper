@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ibc.ibchelper.entity.ContactInfo;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
+import com.ibc.ibchelper.form.PasswordChangeForm;
+import com.ibc.ibchelper.form.VolunteerForm;
 import com.ibc.ibchelper.mail.EmailSender;
 import com.ibc.ibchelper.security.UserSecurityService;
 import com.ibc.ibchelper.service.ContactInfoService;
@@ -29,7 +32,6 @@ import com.ibc.ibchelper.service.UserService;
 import com.ibc.ibchelper.service.VolunteerService;
 import com.ibc.ibchelper.util.GenericResponse;
 import com.ibc.ibchelper.util.OnRegistrationCompleteEvent;
-import com.ibc.ibchelper.util.PasswordChangeForm;
 
 @RestController
 public class PublicController {
@@ -191,5 +193,13 @@ public class PublicController {
 			return new GenericResponse(msgSource.getMessage("auth.message.invalid",null, locale));
 		}
 	}
-
+	
+	// -------------------------------------------------------------
+		// VOLUNTEER'S FORM
+	
+	@PostMapping("/addvolunteer")
+		public GenericResponse addVolunteer(@RequestBody VolunteerForm vForm) {
+			volService.saveVolunteer(vForm);
+			return new GenericResponse("success");
+	}
 }
