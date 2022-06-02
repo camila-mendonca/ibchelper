@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -44,7 +45,7 @@ public class User implements Serializable, UserDetails{
 	private String password;
 	@Transient
 	private String confirmPassword;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Role> roles = new HashSet<>();
 	@Enumerated(EnumType.STRING)
 	private UserType type;

@@ -28,6 +28,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 		final User user = event.getUser();
         final String token = UUID.randomUUID().toString();
         service.createVerificationTokenForUser(user, token);
+        
         final String confirmationUrl = event.getAppUrl() + "/registrationConfirm?token=" + token;
         //change message to the localized option if everything works ok
         //final String message = msgSource.getMessage("message.regSuccLink", null, "You registered successfully. To confirm your registration, please click on the below link.", event.getLocale());

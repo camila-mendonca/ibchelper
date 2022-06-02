@@ -82,7 +82,7 @@ $(function() {
 		if (d.notes != '') {
 			notes = '<tr><td class="text-end">Additional notes:</td><td>' + d.notes + '</td></tr>';
 		}
-		return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + phone + email + website + notes + '</table>';
+		return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + phone + email + website + notes + '<tr><td class="text-end">Language:</td><td>' + d.language + '</td></tr></table>';
 	}
 
 	//Uses datatables.min.js to generate a Datatable

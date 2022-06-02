@@ -18,7 +18,7 @@
 									<span th:text="#{login.title}"></span>
 								</h1>
 							</div>
-							<div th:if="${message != null}" class="alert alert-info" th:utext="#{${message}}">message</div>
+							<div th:if="${message != null}" class="alert alert-info" th:utext="#{${message}}"></div>
 							<div th:if="${error != null}" class="alert alert-danger" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
 							<form th:action="@{/login}" method="post" class="user">
 								<div th:if="${param.error}">

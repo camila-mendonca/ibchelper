@@ -1,16 +1,6 @@
 package com.ibc.ibchelper.entity;
 
 public enum Language {
-	EN("English"), RO("Română"), RU("русский");
-	
-	private final String displayValue;
+	English, Română, русский, Українська;
 
-	private Language(String displayValue) {
-		this.displayValue = displayValue;
-	}
-
-	public String getDisplayValue() {
-		return displayValue;
-	}	
-	
 }

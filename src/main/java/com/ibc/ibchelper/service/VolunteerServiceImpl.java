@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import com.ibc.ibchelper.repository.UserRepository;
 import com.ibc.ibchelper.repository.VehicleRepository;
 import com.ibc.ibchelper.repository.VolunteerRepository;
 import com.ibc.ibchelper.repository.VolunteerTypeRepository;
+import com.ibc.ibchelper.util.OnRegistrationCompleteEvent;
 
 @Service
 public class VolunteerServiceImpl implements VolunteerService{
@@ -43,6 +45,8 @@ public class VolunteerServiceImpl implements VolunteerService{
 	VehicleRepository veRep;
 	@Autowired
 	PasswordEncoder encoder;
+	@Autowired
+	ApplicationEventPublisher eventPublisher;
 
 	@Override
 	public Iterable<VolunteerType> listVolunteerTypes() {
@@ -122,7 +126,9 @@ public class VolunteerServiceImpl implements VolunteerService{
 			ve.setRestrictions(vForm.getVeRestrictions());
 			ve.setNotes(vForm.getVeNotes());
 			veRep.save(ve);
-		}		
+		}
+		
+		eventPublisher.publishEvent(new OnRegistrationCompleteEvent(volunteer, null, "localhost:8081"));
 	}
 
 	@Override

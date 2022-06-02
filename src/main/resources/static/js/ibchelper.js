@@ -185,7 +185,8 @@ function register(event) {
 
 	$.post("adduser", formData, function(data) {
 		if (data.message == "success") {
-			window.location.href = "/user/index";
+			window.location.href = "/login?message=UserRegistered";
+			//window.location.href = "/user/index";
 		}
 	}).fail(function(data) {
 		if (data.responseJSON.message == "UserAlreadyExist") {

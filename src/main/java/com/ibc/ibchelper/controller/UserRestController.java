@@ -63,7 +63,7 @@ public class UserRestController {
 	public void addVolunteer(final HttpServletRequest request) {
 		VolunteerForm vForm = new VolunteerForm();
 		vForm.setName("Host One");
-		vForm.setEmail("hostone@mail.com");
+		vForm.setEmail("mila.louise.m@gmail.com");
 		vForm.setPassword("123456");
 		vForm.setCountryCode("40");
 		vForm.setPhoneNumber("123654789");
@@ -111,12 +111,12 @@ public class UserRestController {
     }
 	
 	//This one will change to Information Center later
-		@GetMapping("/user/index")
-		public ModelAndView index(ContactInfo contactInfo, ModelAndView mv) {
-			mv.addObject("languages", adminService.listLanguages());
-			mv.setViewName("user/index");
-			return mv;
-		}
+	@GetMapping("/user/index")
+	public ModelAndView index(ContactInfo contactInfo, ModelAndView mv) {
+		mv.addObject("languages", adminService.listLanguages());
+		mv.setViewName("user/index");
+		return mv;
+	}
 	
 	//--------------------------------------------
 	// Contact Info CRUD	

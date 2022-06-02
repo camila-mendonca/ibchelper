@@ -145,12 +145,11 @@ function loadEditInfo(id){
 					</select>
 				</div>
 				<div class="col-md-6">
-					<label for="languages" class="form-label">Language *</label>
-					<select class="form-select form-select-sm" id="languages" name="languages" required>
+					<label for="language" class="form-label">Language *</label>
+					<select class="form-select form-select-sm" id="language" name="language" required>
 					    <option selected value="">Select a language</option>
-					    <option th:each="lang : ${languages}" th:value="${lang.languageId}" th:text="${lang.name}"></option>
-					    
-					    
+					    <!-- <option th:each="lang : ${languages}" th:value="${lang.languageId}" th:text="${lang.name}"></option> -->
+					    <option th:each="lang : ${T(com.ibc.ibchelper.entity.Language).values()}" th:value="${lang}" th:text="${lang}"></option>					    
 					</select>
 				</div>				
 				

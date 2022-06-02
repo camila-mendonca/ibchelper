@@ -55,6 +55,7 @@ public class PublicController {
 
 	@RequestMapping(value="/")
 	public ModelAndView index(ModelAndView mv) {
+		mv.addObject("volunteerTypes", volService.listVolunteerTypes());
 		mv.setViewName("index");
 		return mv;
 	}
@@ -198,8 +199,10 @@ public class PublicController {
 		// VOLUNTEER'S FORM
 	
 	@PostMapping("/addvolunteer")
-		public GenericResponse addVolunteer(@RequestBody VolunteerForm vForm) {
-			volService.saveVolunteer(vForm);
-			return new GenericResponse("success");
+	public GenericResponse addVolunteer(@RequestBody VolunteerForm vForm) {
+		volService.saveVolunteer(vForm);
+		//String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+			
+		return new GenericResponse("success");
 	}
 }

@@ -3,7 +3,7 @@ $(function(){
 		event.preventDefault();
 		var formData = $('#langForm').serialize();
 		
-		$.post("admin/addlanguage", formData, function(data){
+		$.post("addlanguage", formData, function(data){
 			if (data.message == "success") {
 				window.location.href = "admin/adminpage";
 			}

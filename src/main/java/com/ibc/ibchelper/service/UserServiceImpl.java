@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.ibc.ibchelper.entity.PasswordResetToken;
 import com.ibc.ibchelper.entity.Role;
 import com.ibc.ibchelper.entity.User;
+import com.ibc.ibchelper.entity.UserType;
 import com.ibc.ibchelper.entity.VerificationToken;
 import com.ibc.ibchelper.error.UserAlreadyExistException;
 import com.ibc.ibchelper.repository.PasswordResetTokenRepository;
@@ -50,8 +51,10 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(encoder.encode(user.getPassword()));
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(roleRep.findRoleById("ROLE_USER"));
+		roles.add(roleRep.findRoleById("ROLE_MANAGER"));
 		user.setRoles(roles);
 		user.setEnabled(false);
+		user.setType(UserType.manager);
 		return userRep.save(user);		
 	}
 
