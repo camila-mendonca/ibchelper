@@ -94,6 +94,31 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+				<artifactId>minify-maven-plugin</artifactId>
+				<version>1.7.6</version>
+				<executions>
+					<execution>
+						<id>default-minify</id>
+						<configuration>
+							<skipMerge>true</skipMerge>
+							<webappSourceDir>${basedir}/src/main/resources/static</webappSourceDir>
+							<webappTargetDir>${project.build.directory}/classes/static</webappTargetDir>
+							<jsSourceIncludes>
+								<jsSourceInclude>**</jsSourceInclude>
+							</jsSourceIncludes>
+							<jsSourceExcludes>
+								<jsSourceExclude>**/*.min.js</jsSourceExclude>
+							</jsSourceExcludes>
+							<jsEngine>CLOSURE</jsEngine>
+						</configuration>
+						<goals>
+						<goal>minify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
