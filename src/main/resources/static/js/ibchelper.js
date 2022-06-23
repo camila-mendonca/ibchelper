@@ -133,6 +133,100 @@ $(function() {
 		}
 	});
 
+	// Volunteer form methods
+	$('#Hosting').change(function () {
+			if ($(this).is(":checked")) {
+					$('#hosting-form').show();
+			} else {
+					$('#hosting-form').hide();
+			}
+	});
+
+	$('#Driving').change(function () {
+			if ($(this).is(":checked")) {
+					$('#driving-form').show();
+			} else {
+					$('#driving-form').hide();
+			}
+	});
+
+	$('#volunteerForm').submit(function (e) {
+			e.preventDefault();
+			$('#volunteerSubmit').prop('disabled', true).attr('value', 'Loading...');
+			const form = $(this);
+
+			const multiSelectKeys = ['volunteerType', 'veTypeHelp', 'veDestination'];
+
+			function mutateVal(value) {
+				if (value === 'on') {
+					return true;
+				}
+				if (value === 'off') {
+					return false;
+				}
+
+				return value;
+			}
+
+			const serializedArray = form.serializeArray();
+
+			const body = {
+				volunteerType: [],
+				veTypeHelp: [],
+				veDestination: [],
+				isHosting: false,
+				isDriving: false,
+				availableWeekdays: false,
+				availableWeekends: false,
+			};
+
+			for (const fieldArr of serializedArray) {
+				const key = fieldArr.name;
+				const val = mutateVal(fieldArr.value);
+
+				// Set isHosting and isDriving
+				if (key === 'volunteerType') {
+					if (val === '56') {
+						body.isHosting = true;
+					}
+					else if (val === '57') {
+						body.isDriving = true;
+					}
+				}
+
+				if (multiSelectKeys.includes(key)) {
+					if (!body[key]) {
+						body[key] = [];
+					}
+
+					body[key].push(val);
+				} else {
+					body[key] = val;
+				}
+			}
+
+			$.ajax({
+				url:"/addvolunteer",
+				type:"POST",
+				data:JSON.stringify(body),
+				contentType:"application/json; charset=utf-8",
+				dataType:"json",
+				success: function() {
+					$('#responseMessage').text('Success! Please check your email for a confirmation');
+				},
+				error: function(data) {
+					let responseMessage = 'Unknown server error';
+					if (data.responseJSON && data.responseJSON.message) {
+						responseMessage = data.responseJSON.message;
+					}
+					$('#responseMessage').text('Error: ' + responseMessage);
+				},
+				complete: function() {
+					$('#volunteerSubmit').prop('disabled', false).attr('value', 'Submit');
+				},
+			});
+	});
+
 }); // End of document ready
 
 function changeLang(lang) { window.location.replace('?lang=' + lang); }
