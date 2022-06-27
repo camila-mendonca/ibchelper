@@ -61,27 +61,6 @@
 	                        </ul>         
 	                    </div>
 					</div>
-                    <!-- <div class="col-md-4">
-	                    <a class="modalLink" data-bs-toggle="modal" href="#financialHelpModal" role="button">
-	                        <span class="fa-stack fa-4x">
-	                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-	                            <i class="fas fa-gift fa-stack-1x fa-inverse"></i>
-	                        </span>
-	                        <h4 class="my-3">Donations</h4>
-	                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-	                    </a>
-	                    <div class="modal fade" id="financialHelpModal" tabindex="-1">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="financialHelpModalToggleLabel">Donations</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">Show a second modal and hide this one with the button below.</div>									
-								</div>
-							</div>
-						</div>
-                    </div> -->
                     <div class="col-md-5">
                     	<div class="my-4">
 	                    	<span class="fa-stack fa-4x">
@@ -89,6 +68,9 @@
 	                            <i class="fas fa-people-carry fa-stack-1x fa-inverse"></i>
 	                        </span>
 	                        <h4 class="my-3">Volunteering</h4>
+													<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+														Register to Volunteer	
+													</button>
 	                        <p>If you're around Bucharest and want to help us by serving, hosting or driving, please contact us on:</p>
 	                        <p><b>Email:</b> <a href="mailto:icbhelper@gmail.com">icbhelper@gmail.com</a></p>
 	                        <strong>What a volunteer does do at Project Ezra:</strong>
@@ -104,6 +86,380 @@
                 
             </div>
         </section>
+
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Volunteer Form</h5>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="row justify-content-center">
+									<form id="volunteerForm" action="/addvolunteer" method="post">
+										<div class="form-group">
+											<label for="name">Name</label>
+											<input
+												type="text"
+												class="form-control"
+												id="name"
+												name="name"
+												placeholder="Name"
+												required
+											/>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="email">Email</label>
+													<input
+														type="text"
+														class="form-control"
+														id="email"
+														name="email"
+														placeholder="Email"
+														required
+													/>
+												</div>
+											</div>
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="phoneNumber">Phone</label>
+														<div class="d-flex flex-row gap-2 align-items-center">
+															<div>+</div>
+															<input
+																type="number"
+																class="form-control"
+																style="width: 100px;"
+																id="countryCode"
+																name="countryCode"
+																placeholder="1"
+																required
+															/>
+															<input
+																type="number"
+																class="form-control"
+																id="phoneNumber"
+																name="phoneNumber"
+																placeholder="Phone #"
+																required
+															/>
+														</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="password">Password</label>
+													<input
+														type="password"
+														class="form-control"
+														id="password"
+														name="password"
+														placeholder="Password"
+														required
+													/>
+												</div>
+											</div>
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="confirmPassword">Confirm Password</label>
+													<input
+														type="password"
+														class="form-control"
+														id="confirmPassword"
+														name="confirmPassword"
+														placeholder="Confirm Password"
+														required
+													/>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="country">Country</label>
+													<input
+														type="text"
+														class="form-control"
+														id="country"
+														name="country"
+														placeholder="Country"
+														required
+													/>
+												</div>
+											</div>
+											<div class="col-sm-6 mt-3">
+												<div class="form-group">
+													<label for="city">City</label>
+													<input
+														type="text"
+														class="form-control"
+														id="city"
+														name="city"
+														placeholder="City"
+														required
+													/>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-4">
+											<div class="form-group">
+												<div>How can you help?</div>
+												<div th:each="volType : ${volunteerTypes}" class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														th:id="${volType.name}"
+														th:value="${volType.volTypeId}"
+														th:text="${volType.name}"
+														name="volunteerType"
+													/>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<div class="form-group">
+												<label for="details">Details</label>
+												<textarea
+													class="form-control"
+													id="details"
+													name="volunteerDetails"
+												></textarea>
+											</div>
+										</div>
+
+										<div class="row mt-1">
+											<div class="form-group">
+												<div>When are you usually available?</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="availableWeekdays"
+														name="availableWeekdays"
+													/>
+													<label for="availableWeekdays">Weekdays</label>
+												</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="availableWeekends"
+														name="availableWeekends"
+													/>
+													<label for="availableWeekends">Weekends</label>
+												</div>
+											</div>
+										</div>
+
+										<div class="row mt-1">
+											<div class="form-group">
+												<label for="availabilityExceptions"
+													>Any exceptions? (Ex: Not available on Sundays)</label
+												>
+												<textarea
+													class="form-control"
+													id="availabilityExceptions"
+													name="availabilityExceptions"
+												></textarea>
+											</div>
+										</div>
+
+										<div class="row mt-4" id="hosting-form" style="display: none">
+											<h3>Hosting Form</h3>
+											<div class="form-group">
+												<label for="accAddress">Address</label>
+												<textarea
+													class="form-control"
+													id="accAddress"
+													name="accAddress"
+												></textarea>
+											</div>
+											<div class="row mt-1">
+												<div class="form-group col-sm-6">
+													<label for="accBedsAdults">Adult Capacity</label>
+													<input
+														type="number"
+														class="form-control"
+														id="accBedsAdults"
+														name="accBedsAdults"
+														placeholder="0"
+													/>
+												</div>
+												<div class="form-group col-sm-6">
+													<label for="accBedsKids">Kid Capacity</label>
+													<input
+														type="number"
+														class="form-control"
+														id="accBedsKids"
+														name="accBedsKids"
+														placeholder="0"
+													/>
+												</div>
+											</div>
+											<div class="form-group mt-1">
+												<div>Pets</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="accPets" value="on" id="petsYes">
+													<label class="form-check-label" for="petsYes">
+														Yes
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="accPets" value="off" id="petsNo" checked>
+													<label class="form-check-label" for="petsNo">
+														No
+													</label>
+												</div>
+											</div>
+											<div class="form-group mt-1">
+												<label for="accRestrictions">Restrictions</label>
+												<textarea
+													class="form-control"
+													id="accRestrictions"
+													name="accRestrictions"
+												></textarea>
+											</div>
+											<div class="form-group mt-1">
+												<label for="accNotes">Notes</label>
+												<textarea
+													class="form-control"
+													id="accNotes"
+													name="accNotes"
+												></textarea>
+											</div>
+										</div>
+
+										<div class="row mt-4" id="driving-form" style="display: none">
+											<h3>Driving Form</h3>
+											<div class="form-group">
+												<label for="veType">Type Vehicle</label>
+												<input
+													type="text"
+													class="form-control"
+													id="veType"
+													name="veType"
+												/>
+											</div>
+											<div class="form-group mt-1">
+												<div>How would you like to help?</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="veTypeHelpRides"
+														value="Giving rides"
+														name="veTypeHelp"
+													/>
+													<label for="veTypeHelpRides">Giving Rides</label>
+												</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="veTypeHelpGoods"
+														value="Transporting goods"
+														name="veTypeHelp"
+													/>
+													<label for="veTypeHelpGoods">Transporting Goods</label>
+												</div>
+											</div>
+											<div class="form-group mt-1">
+												<label for="veSeats">Seats available (if offering ride)</label>
+												<input
+													type="number"
+													class="form-control"
+													id="veSeats"
+													name="veSeats"
+													placeholder="0"
+												/>
+											</div>
+											<div class="form-group mt-1">
+												<div>To what destinations can you drive to?</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="bucharest"
+														value="Inside Bucharest"
+														name="veDestination"
+													/>
+													<label for="bucharest">Inside Bucharest</label>
+												</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="romania"
+														value="Inside Romania"
+														name="veDestination"
+													/>
+													<label for="romania">Inside Romania</label>
+												</div>
+												<div class="form-check">
+													<input
+														type="checkbox"
+														class="form-check-input"
+														id="moldova"
+														value="Inside Moldova"
+														name="veDestination"
+													/>
+													<label for="moldova">Inside Moldova</label>
+												</div>
+											</div>
+											<div class="form-group mt-1">
+												<div>Can you drive to the border with Ukraine?</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="veDrivesToBorder" value="on" id="borderYes">
+													<label class="form-check-label" for="borderYes">
+														Yes
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="veDrivesToBorder" value="off" id="borderNo" checked>
+													<label class="form-check-label" for="borderNo">
+														No
+													</label>
+												</div>
+											</div>
+											<div class="form-group mt-1">
+												<label for="veRestrictions">Restrictions</label>
+												<textarea
+													class="form-control"
+													id="veRestrictions"
+													name="veRestrictions"
+												></textarea>
+											</div>
+											<div class="form-group mt-1">
+												<label for="veNotes">Notes</label>
+												<textarea
+													class="form-control"
+													id="veNotes"
+													name="veNotes"
+												></textarea>
+											</div>
+										</div>
+
+										<div class="mt-3">
+											<input	
+												id="volunteerSubmit"
+												type="submit"
+												value="Submit"
+												class="btn btn-primary btn-user btn-block"
+											/>
+											<span id="responseMessage"></span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
         <!-- Contact-->
         <section class="page-section bg-yellow" id="needHelp">
             <div class="container">
