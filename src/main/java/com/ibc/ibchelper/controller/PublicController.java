@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ibc.ibchelper.entity.ContactInfo;
 import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.VerificationToken;
+import com.ibc.ibchelper.entity.Volunteer;
 import com.ibc.ibchelper.form.PasswordChangeForm;
 import com.ibc.ibchelper.form.VolunteerForm;
 import com.ibc.ibchelper.mail.EmailSender;
@@ -62,7 +63,7 @@ public class PublicController {
 	
 	@GetMapping("/contactinfos")
 	public Iterable<ContactInfo> listPublicContacInfo(){
-		return infoService.listContacInfo();
+		return infoService.listContacInfo(true);
 	}
 	
 	// -----------------------------------------------
@@ -196,13 +197,23 @@ public class PublicController {
 	}
 	
 	// -------------------------------------------------------------
-		// VOLUNTEER'S FORM
+	// VOLUNTEER'S FORM
 	
 	@PostMapping("/addvolunteer")
+<<<<<<< Updated upstream
 	public GenericResponse addVolunteer(@RequestBody VolunteerForm vForm) {
 		volService.saveVolunteer(vForm);
 		//String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 			
 		return new GenericResponse("success");
+=======
+		public GenericResponse addVolunteer(@RequestBody VolunteerForm vForm, final HttpServletRequest request) {
+			Volunteer vol = volService.saveVolunteer(vForm);
+			
+			String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(vol, request.getLocale(), appUrl));
+			
+			return new GenericResponse("success");
+>>>>>>> Stashed changes
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ibc.ibchelper.entity.Accommodation;
 import com.ibc.ibchelper.entity.Event;
 import com.ibc.ibchelper.entity.Role;
+import com.ibc.ibchelper.entity.User;
 import com.ibc.ibchelper.entity.UserType;
 import com.ibc.ibchelper.entity.Vehicle;
 import com.ibc.ibchelper.entity.Volunteer;
@@ -69,7 +70,7 @@ public class VolunteerServiceImpl implements VolunteerService{
 	}
 
 	@Override
-	public void saveVolunteer(VolunteerForm vForm) {
+	public Volunteer saveVolunteer(VolunteerForm vForm) {
 		Volunteer volunteer = new Volunteer();
 		if(userRep.findUserByUsername(vForm.getEmail())!=null) {
 			throw new UserAlreadyExistException("UserAlreadyExist");
@@ -127,8 +128,12 @@ public class VolunteerServiceImpl implements VolunteerService{
 			ve.setNotes(vForm.getVeNotes());
 			veRep.save(ve);
 		}
+<<<<<<< Updated upstream
 		
 		eventPublisher.publishEvent(new OnRegistrationCompleteEvent(volunteer, null, "localhost:8081"));
+=======
+		return vol;
+>>>>>>> Stashed changes
 	}
 
 	@Override

@@ -18,8 +18,10 @@ public class ContactInfoServiceImpl implements ContactInfoService{
 	}
 
 	@Override
-	public Iterable<ContactInfo> listContacInfo() {
-		return infoRep.findAll();
+	public Iterable<ContactInfo> listContacInfo(boolean isPublic) {
+		if(isPublic) {
+			return infoRep.findAllByIsPublicTrue();
+		} else return infoRep.findAll();
 	}
 
 	@Override

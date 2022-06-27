@@ -62,7 +62,11 @@ public class UserRestController {
 	@GetMapping("/addvolunteer")
 	public void addVolunteer(final HttpServletRequest request) {
 		VolunteerForm vForm = new VolunteerForm();
+<<<<<<< Updated upstream
 		vForm.setName("Host One");
+=======
+		vForm.setName("Mila (Host)");
+>>>>>>> Stashed changes
 		vForm.setEmail("mila.louise.m@gmail.com");
 		vForm.setPassword("123456");
 		vForm.setCountryCode("40");
@@ -90,11 +94,9 @@ public class UserRestController {
 		
 		vForm.setIsDriving(false);
 		
-		volService.saveVolunteer(vForm);
+		Volunteer vol = volService.saveVolunteer(vForm);
 		//String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-		//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), appUrl));
-		
-		
+		eventPublisher.publishEvent(new OnRegistrationCompleteEvent(vol, request.getLocale(), "localhost:8081"));	
 	}
 	
 	@ModelAttribute("currentUser")
@@ -129,7 +131,7 @@ public class UserRestController {
 
 	@GetMapping("/user/listcontactinfo")
 	public Iterable<ContactInfo> listContacInfo(){
-		return infoService.listContacInfo();
+		return infoService.listContacInfo(false);
 	}
 	
 	@GetMapping("/user/loadeditinfo/info={infoId}")

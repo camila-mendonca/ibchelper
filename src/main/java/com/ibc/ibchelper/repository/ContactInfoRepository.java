@@ -7,5 +7,5 @@ import com.ibc.ibchelper.entity.ContactInfo;
 
 @Repository
 public interface ContactInfoRepository extends CrudRepository<ContactInfo, Long>{
-
+	public Iterable<ContactInfo> findAllByIsPublicTrue();
 }
